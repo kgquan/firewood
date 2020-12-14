@@ -25,7 +25,10 @@
     "@babel/register": "^7.12.10",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
-    "gulp-rename": "^2.0.0"
+    "gulp-rename": "^2.0.0",
+    "gulp-stylelint": "^13.0.0",
+    "stylelint": "^13.8.0",
+    "stylelint-config-wordpress": "^17.0.0"
   },
   "presets": [
     "@babel/preset-env"
