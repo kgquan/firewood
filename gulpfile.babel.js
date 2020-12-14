@@ -7,6 +7,7 @@ import rename from 'gulp-rename'
 //CSS
 import sass from '@selfisekai/gulp-sass';
 import stylelint from 'gulp-stylelint';
+import cleanCss from 'gulp-clean-css'
 
 //Both JS and CSS
 import sourcemaps from 'gulp-sourcemaps';
@@ -29,6 +30,7 @@ export const styles = () => {
     }))
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
+    .pipe(cleanCss({ compatibility:'*'}))
     .pipe(rename('style.css'))
     .pipe(sourcemaps.write())
     .pipe(dest(destPaths.css))
