@@ -7,6 +7,9 @@ import rename from 'gulp-rename'
 //CSS
 import stylelint from 'gulp-stylelint';
 
+//Both JS and CSS
+import sourcemaps from 'gulp-sourcemaps';
+
 /** The destination paths. */
 const destPaths = {
     css: './',
@@ -23,7 +26,9 @@ export const styles = () => {
             { formatter: 'string', console: true }
         ]
     }))
+    .pipe(sourcemaps.init())
     .pipe(rename('style.css'))
+    .pipe(sourcemaps.write())
     .pipe(dest(destPaths.css))
 }
 
