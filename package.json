@@ -1,0 +1,25 @@
+{
+  "name": "firewood",
+  "version": "1.0.0",
+  "description": "A Wordpress starter theme template using Timber and Gulp.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kgquan/firewood.git"
+  },
+  "author": "Kevin Quan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kgquan/firewood/issues"
+  },
+  "homepage": "https://github.com/kgquan/firewood#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  }
+}
