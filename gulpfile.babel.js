@@ -5,6 +5,7 @@ import { src, dest, watch, series, parallel } from 'gulp';
 import rename from 'gulp-rename'
 
 //CSS
+import sass from '@selfisekai/gulp-sass';
 import stylelint from 'gulp-stylelint';
 
 //Both JS and CSS
@@ -27,6 +28,7 @@ export const styles = () => {
         ]
     }))
     .pipe(sourcemaps.init())
+    .pipe(sass().on('error', sass.logError))
     .pipe(rename('style.css'))
     .pipe(sourcemaps.write())
     .pipe(dest(destPaths.css))
