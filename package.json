@@ -20,6 +20,14 @@
   },
   "homepage": "https://github.com/kgquan/firewood#readme",
   "devDependencies": {
-    "gulp": "^4.0.2"
-  }
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.10",
+    "@babel/register": "^7.12.10",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-rename": "^2.0.0"
+  },
+  "presets": [
+    "@babel/preset-env"
+  ]
 }
