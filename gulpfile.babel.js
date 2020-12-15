@@ -10,6 +10,7 @@ import cleanCss from 'gulp-clean-css';
 import stylelint from 'gulp-stylelint';
 import postcss from 'gulp-postcss';
 import autoprefixer from 'autoprefixer';
+import header from 'gulp-header';
 
 //Both JS and CSS
 import sourcemaps from 'gulp-sourcemaps';
@@ -18,6 +19,20 @@ import sourcemaps from 'gulp-sourcemaps';
 const destPaths = {
     css: './',
 }
+
+/** Creates a comment heading at the top of the .css file, as 
+ * mandated by Wordpress. This uses package.json data.
+ */
+let pkg = require('./package.json');
+pkg.name = pkg.name.charAt(0).toUpperCase() + pkg.name.slice(1);
+const comment = [
+    '/**',
+    ' * Theme Name: <%= pkg.name %>',
+    ' * Description: <%= pkg.description %>',
+    ' * Author: <%= pkg.author %>',
+    '*/',
+    ''
+].join('\n');
 
 /** 
  * Prepares .scss files by linting the file and generating the 
@@ -34,6 +49,7 @@ export const styles = () => {
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss([autoprefixer]))
     .pipe(cleanCss({ compatibility:'*'}))
+    .pipe(header(comment, { pkg: pkg }))
     .pipe(rename('style.css'))
     .pipe(sourcemaps.write())
     .pipe(dest(destPaths.css))
