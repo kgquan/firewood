@@ -2,18 +2,25 @@
 import { src, dest, watch, series, parallel } from 'gulp';
 
 //Utilities
+import yargs from 'yargs';
 import rename from 'gulp-rename'
 
 //CSS
 import sass from '@selfisekai/gulp-sass';
 import cleanCss from 'gulp-clean-css';
 import stylelint from 'gulp-stylelint';
+import gulpif from 'gulp-if';
 import postcss from 'gulp-postcss';
 import autoprefixer from 'autoprefixer';
 import header from 'gulp-header';
 
 //Both JS and CSS
 import sourcemaps from 'gulp-sourcemaps';
+
+/** Defines the opstring for signifying whether a task needs to 
+ * run additional steps for production.
+ */
+const PRODUCTION = yargs.argv.prod;
 
 /** The destination paths. */
 const destPaths = {
@@ -45,13 +52,13 @@ export const styles = () => {
             { formatter: 'string', console: true }
         ]
     }))
-    .pipe(sourcemaps.init())
+    .pipe(gulpif(!PRODUCTION, sourcemaps.init()))
     .pipe(sass().on('error', sass.logError))
-    .pipe(postcss([autoprefixer]))
-    .pipe(cleanCss({ compatibility:'*'}))
-    .pipe(header(comment, { pkg: pkg }))
-    .pipe(rename('style.css'))
-    .pipe(sourcemaps.write())
+    .pipe(gulpif(PRODUCTION, postcss([autoprefixer])))
+    .pipe(gulpif(PRODUCTION, cleanCss({ compatibility:'*'})))
+    .pipe(gulpif(PRODUCTION, header(comment, { pkg: pkg })))
+    .pipe(gulpif(PRODUCTION, rename('style.css')))
+    .pipe(gulpif(!PRODUCTION, sourcemaps.write()))
     .pipe(dest(destPaths.css))
 }
 
